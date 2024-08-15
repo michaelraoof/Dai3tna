@@ -13,6 +13,9 @@ function FollowerUsers({ profile, userFollowStats, user }) {
   useEffect(() => {
     let didCancel = false;
     const getFollowers = async () => {
+      if (!profile) {
+        return; // Exit if profile is null
+      }
       setLoading(true);
 
       try {
@@ -35,65 +38,65 @@ function FollowerUsers({ profile, userFollowStats, user }) {
     return () => {
       didCancel = true;
     };
-  }, []); //this runs on first component render
+  }, [profile]); //this runs on first component render
+  if (profile)
+    return (
+      <div
+        style={{ fontFamily: "Inter" }}
+        className="bg-white rounded-2xl shadow-md  mt-5 p-5"
+      >
+        <div className="flex justify-between">
+          <div className="flex">
+            <h1
+              className="text-2xl font-semibold"
+              style={{ fontFamily: "inherit" }}
+            >
+              Followers ·
+            </h1>
+            <span
+              className="ml-1 text-gray-500 text-lg"
+              style={{ marginTop: ".15rem" }}
+            >
+              {followers && followers.length > 0 ? followers.length : "0"}
+            </span>
+          </div>
 
-  return (
-    <div
-      style={{ fontFamily: "Inter" }}
-      className="bg-white rounded-2xl shadow-md  mt-5 p-5"
-    >
-      <div className="flex justify-between">
-        <div className="flex">
-          <h1
-            className="text-2xl font-semibold"
-            style={{ fontFamily: "inherit" }}
-          >
-            Followers ·
-          </h1>
-          <span
-            className="ml-1 text-gray-500 text-lg"
-            style={{ marginTop: ".15rem" }}
-          >
-            {followers && followers.length > 0 ? followers.length : "0"}
-          </span>
+          {followers && followers.length > 0 && (
+            <p
+              onClick={() => router(`/user/${profile.user._id}/followers`)}
+              className="text-md font-normal cursor-pointer select-none text-purple-400 hover:underline"
+              style={{ fontFamily: "inherit" }}
+            >
+              View All
+            </p>
+          )}
         </div>
 
-        {followers && followers.length > 0 && (
-          <p
-            onClick={() => router(`/user/${profile.user._id}/followers`)}
-            className="text-md font-normal cursor-pointer select-none text-purple-400 hover:underline"
-            style={{ fontFamily: "inherit" }}
-          >
-            View All
+        {followers && followers.length > 0 ? (
+          <GridContainer>
+            {followers.map((fol) => (
+              <div
+                className="mb-5 cursor-pointer"
+                key={fol.user._id}
+                onClick={() => router(`/${fol.user.username}`)}
+              >
+                <FollowersImage src={fol.user.profilePicUrl} alt="userprof" />
+                <NameOfUser onClick={() => router(`/${fol.user.username}`)}>
+                  {fol.user.name}
+                </NameOfUser>
+              </div>
+            ))}
+          </GridContainer>
+        ) : profile.user._id === user._id ? (
+          <p className="text-md text-gray-500">
+            {`You don't have any followers ☹️. The trick is to follow someone and then
+          wait for them to follow you back.`}
           </p>
+        ) : (
+          <p className="text-md text-gray-500">{`${profile.user.name} doesn't have any followers.`}</p>
         )}
       </div>
-
-      {followers && followers.length > 0 ? (
-        <GridContainer>
-          {followers.map((fol) => (
-            <div
-              className="mb-5 cursor-pointer"
-              key={fol.user._id}
-              onClick={() => router(`/${fol.user.username}`)}
-            >
-              <FollowersImage src={fol.user.profilePicUrl} alt="userprof" />
-              <NameOfUser onClick={() => router(`/${fol.user.username}`)}>
-                {fol.user.name}
-              </NameOfUser>
-            </div>
-          ))}
-        </GridContainer>
-      ) : profile.user._id === user._id ? (
-        <p className="text-md text-gray-500">
-          {`You don't have any followers ☹️. The trick is to follow someone and then
-          wait for them to follow you back.`}
-        </p>
-      ) : (
-        <p className="text-md text-gray-500">{`${profile.user.name} doesn't have any followers.`}</p>
-      )}
-    </div>
-  );
+    );
 }
 
 export default FollowerUsers;

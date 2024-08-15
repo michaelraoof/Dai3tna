@@ -191,14 +191,49 @@ function UserNamePage() {
   if (error) {
     return <div>error</div>;
   }
-  if (profile && user) {
-    const isUserOnOwnAccount = profile?.user._id === user?._id;
-    const isLoggedInUserFollowing =
-      loggedUserFollowStats?.following.length > 0 &&
-      loggedUserFollowStats?.following.filter(
-        (following) => following.user === profile.user._id
-      ).length > 0;
-    console.log(isUserOnOwnAccount);
+
+  const isUserOnOwnAccount = profile?.user._id === user?._id;
+  const isLoggedInUserFollowing =
+    loggedUserFollowStats?.following.length > 0 &&
+    loggedUserFollowStats?.following.filter(
+      (following) => following.user === profile?.user._id
+    ).length > 0;
+  console.log(isUserOnOwnAccount);
+  const CoverImageComponent = (
+    <>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => addImageFromDevice(e, "cover")}
+        name="media"
+        ref={coverImageRef}
+        style={{ display: "none" }}
+      ></input>
+      {coverPicPreview !== null ? (
+        <CoverImage src={coverPicPreview} alt="cover pic" />
+      ) : (
+        <CoverImage src={profile?.user.coverPicUrl} alt="cover pic" />
+      )}
+    </>
+  );
+  const ProfileImgComponent = (
+    <>
+      <input
+        type="file"
+        accept="image/*"
+        onChange={(e) => addImageFromDevice(e, "profile")}
+        name="media"
+        ref={profilePicRef}
+        style={{ display: "none" }}
+      ></input>
+      {profilePicPreview !== null ? (
+        <ProfileImage src={profilePicPreview} alt="profilepic" />
+      ) : (
+        <ProfileImage src={profile?.user.profilePicUrl} alt="profilepic" />
+      )}
+    </>
+  );
+  if (profile)
     return (
       <>
         <Header user={user} />
@@ -210,39 +245,10 @@ function UserNamePage() {
         >
           <div className="mx-auto max-w-lg sm:max-w-xl md:max-w-3xl lg:max-w-[1000px]">
             <div style={{ position: "relative" }}>
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => addImageFromDevice(e, "cover")}
-                name="media"
-                ref={coverImageRef}
-                style={{ display: "none" }}
-              ></input>
-              {coverPicPreview !== null ? (
-                <CoverImage src={coverPicPreview} alt="cover pic" />
-              ) : (
-                <CoverImage src={profile.user.coverPicUrl} alt="cover pic" />
-              )}
-
-              <input
-                type="file"
-                accept="image/*"
-                onChange={(e) => addImageFromDevice(e, "profile")}
-                name="media"
-                ref={profilePicRef}
-                style={{ display: "none" }}
-              ></input>
-              {profilePicPreview !== null ? (
-                <ProfileImage src={profilePicPreview} alt="profilepic" />
-              ) : (
-                <ProfileImage
-                  src={profile.user.profilePicUrl}
-                  alt="profilepic"
-                />
-              )}
-
+              {CoverImageComponent}
+              {ProfileImgComponent}
               <Name className="font-semibold text-3xl">
-                {profile.user.name}
+                {profile?.user.name}
               </Name>
               {/* <Username className="text-xl font-normal text-gray-600">{`@${profile.user.username}`}</Username> */}
 
@@ -306,7 +312,7 @@ function UserNamePage() {
                     ) : (
                       <CameraIcon className="h-7 text-gray-600" />
                     )}
-                  </EditCoverPicDiv>{" "}
+                  </EditCoverPicDiv>
                 </>
               )}
             </div>
@@ -391,9 +397,6 @@ function UserNamePage() {
         </div>
       </>
     );
-  } else {
-    return <div>loading...</div>;
-  }
 }
 
 export default UserNamePage;

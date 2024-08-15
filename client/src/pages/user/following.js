@@ -1,23 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
-import baseUrl from "../../../utils/baseUrl";
-import { parseCookies } from "nookies";
-import InfoBox from "../../../components/HelperComponents/InfoBox";
+import { useNavigate, useParams } from "react-router-dom";
+import baseUrl from "utils/baseUrl";
+import cookie from "js-cookie";
+import InfoBox from "components/HelperComponents/InfoBox";
 import {
   CheckCircleIcon,
   ExclamationCircleIcon,
   UserAddIcon,
 } from "@heroicons/react/solid";
-import Header from "../../../components/Header";
+import Header from "components/Header";
 import styled from "styled-components";
-import { followUser, unfollowUser } from "../../../utils/profileActions";
-import Sidebar from "../../../components/Sidebar";
+import { followUser, unfollowUser } from "utils/profileActions";
+import Sidebar from "components/Sidebar";
+import useBearStore from "store/store";
 
-function FollowersPage({ user, userFollowStats, followers, errorLoading }) {
-  const router = useRouter();
+function FollowingPage() {
+  const router = useNavigate();
+  const params = useParams();
+  const [errorLoading, setErrorLoading] = useState(false);
+  const [followingArrayState, setFollowingArrayState] = useState(null);
+  const { user, userFollowStats } = useBearStore((state) => ({
+    user: state.user,
+    userFollowStats: state.userFollowStats,
+  }));
+  useEffect(() => {
+    const getFollowings = async () => {
+      try {
+        const token = cookie.get("token");
 
-  const [followersArrayState, setFollowersArrayState] = useState(followers);
+        const followings = await axios
+          .get(`${baseUrl}/api/profile/following/${params.userId}`, {
+            headers: { Authorization: token },
+          })
+          .then((res) => res.data);
+        setFollowingArrayState(followings);
+      } catch (error) {
+        setErrorLoading(true);
+      }
+    };
+    getFollowings();
+  }, []);
+
   const [loggedUserFollowStats, setLoggedUserFollowStats] =
     useState(userFollowStats);
   const [loading, setLoading] = useState(false);
@@ -31,31 +55,30 @@ function FollowersPage({ user, userFollowStats, followers, errorLoading }) {
       />
     );
   }
-
-  return (
-    <div className="bg-gray-100 h-screen">
-      <Header user={user} />
-      <main
-        style={{
-          height: "calc(100vh - 4.5rem)",
-          overflowY: "auto",
-          display: "flex",
-        }}
-      >
-        <Sidebar user={user} topDist={"0"} maxWidth={"250px"} />
-        <div
-          style={{ fontFamily: "Inter" }}
-          className="mx-auto h-full w-full flex-1 max-w-md md:max-w-xl lg:max-w-[61.5rem] xl:max-w-[67rem] bg-white p-4 shadow-lg rounded-lg overflow-y-auto"
+  if (followingArrayState) {
+    return (
+      <div className="bg-gray-100 h-screen">
+        <Header user={user} />
+        <main
+          style={{
+            height: "calc(100vh - 4.5rem)",
+            overflowY: "auto",
+            display: "flex",
+          }}
         >
-          <div className="flex items-center ml-2">
-            <Title>Followers ·</Title>
-            <FollowersNumber className="text-gray-500 ml-2">
-              {followersArrayState.length}
-            </FollowersNumber>
-          </div>
-          {followersArrayState.length > 0 ? (
+          <Sidebar user={user} topDist={"0"} maxWidth={"250px"} />
+          <div
+            style={{ fontFamily: "Inter" }}
+            className="mx-auto h-full w-full flex-1 max-w-md md:max-w-xl lg:max-w-[61.5rem] xl:max-w-[67rem] bg-white p-4 shadow-lg rounded-lg overflow-y-auto"
+          >
+            <div className="flex items-center ml-2">
+              <Title>Following ·</Title>
+              <FollowingNumber className="text-gray-500 ml-2">
+                {followingArrayState.length}
+              </FollowingNumber>
+            </div>
             <GridContainer className="grid-cols-1 lg:grid-cols-2">
-              {followersArrayState.map((fol) => {
+              {followingArrayState.map((fol) => {
                 const isLoggedInUserFollowing =
                   loggedUserFollowStats.following.length > 0 &&
                   loggedUserFollowStats.following.filter(
@@ -73,7 +96,7 @@ function FollowersPage({ user, userFollowStats, followers, errorLoading }) {
                       <Image src={fol.user.profilePicUrl} alt="userimg" />
                       <Name
                         className="ml-3"
-                        onClick={() => router.push(`/${fol.user.username}`)}
+                        onClick={() => router(`/${fol.user.username}`)}
                       >
                         {fol.user.name}
                       </Name>
@@ -103,7 +126,7 @@ function FollowersPage({ user, userFollowStats, followers, errorLoading }) {
                               );
                             }}
                           >
-                            <UserAddIcon className="h-6" />
+                            <UserAddIcon className="h-6 " />
                             <p className="ml-1.5">Follow</p>
                           </FollowButton>
                         )}
@@ -115,38 +138,15 @@ function FollowersPage({ user, userFollowStats, followers, errorLoading }) {
                 );
               })}
             </GridContainer>
-          ) : router.query.userId === user._id ? (
-            <p className="text-md text-gray-500">
-              {`You don't have any followers ☹️. The trick is to follow someone and then
-          wait for them to follow you back.`}
-            </p>
-          ) : (
-            <p className="text-md text-gray-500">{`This user doesn't have any followers.`}</p>
-          )}
-        </div>
-        <div className="w-10"></div>
-      </main>
-    </div>
-  );
+          </div>
+          <div className="w-10"></div>
+        </main>
+      </div>
+    );
+  }
 }
 
-FollowersPage.getInitialProps = async (ctx) => {
-  try {
-    const { token } = parseCookies(ctx);
-
-    const res = await axios.get(
-      `${baseUrl}/api/profile/followers/${ctx.query.userId}`,
-      {
-        headers: { Authorization: token },
-      }
-    );
-    return { followers: res.data };
-  } catch (error) {
-    return { errorLoading: true };
-  }
-};
-
-export default FollowersPage;
+export default FollowingPage;
 
 const FollowButton = styled.div`
   height: fit-content;
@@ -159,6 +159,9 @@ const FollowButton = styled.div`
   font-size: 1.1rem;
   font-family: "Inter";
   font-weight: 400;
+  :hover {
+    background-color: rgba(109, 40, 217);
+  }
 `;
 
 const GridContainer = styled.div`
@@ -191,7 +194,7 @@ const Title = styled.p`
   font-family: Inter;
 `;
 
-const FollowersNumber = styled.p`
+const FollowingNumber = styled.p`
   font-family: Inter;
   user-select: none;
   font-size: 1.25rem;

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import calculateTime from "../../utils/calculateTime";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 
 function LikeNotification({ notification }) {
   return (
@@ -10,14 +10,10 @@ function LikeNotification({ notification }) {
         <UserImage src={notification.user.profilePicUrl} alt="userimg" />
         <div className="select-none">
           <p>
-            <Link href={`/${notification.user.username}`} passHref>
+            <Link to={`/${notification.user.username}`}>
               {notification.user.name}
             </Link>{" "}
-            liked your{" "}
-            <Link href={`/post/${notification.post._id}`} passHref>
-              post
-            </Link>
-            .
+            liked your <Link to={`/post/${notification.post._id}`}>post</Link>.
           </p>
           <p className="text-gray-500" style={{ marginTop: "-.7rem" }}>
             {calculateTime(notification.date, true)}

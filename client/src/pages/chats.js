@@ -1,25 +1,28 @@
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { parseCookies } from "nookies";
+import { useNavigate, useParams } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
-import Header from "../components/Header";
-import baseUrl from "../utils/baseUrl";
+import Header from "components/Header";
+import baseUrl from "utils/baseUrl";
 import io from "socket.io-client"; //socket.io import
-import Sidebar from "../components/Sidebar";
-import ChatSearch from "../components/Chat/ChatSearch";
+import Sidebar from "components/Sidebar";
+import ChatSearch from "components/Chat/ChatSearch";
 import { SearchIcon } from "@heroicons/react/outline";
 import styled from "styled-components";
-import calculateTime from "../utils/calculateTime";
-import Chat from "../components/Chat/Chat";
+import calculateTime from "utils/calculateTime";
+import Chat from "components/Chat/Chat";
 import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
-import { getUserInfo } from "../utils/messageActions";
+
 import Loader from "react-loader-spinner";
 import cookie from "js-cookie";
 import { Facebook } from "react-content-loader";
+import useBearStore from "store/store";
 
-function ChatsPage({ user, chatsData }) {
-  const [chats, setChats] = useState(chatsData);
+function ChatsPage() {
+  const [errorLoading, setErrorLoading] = useState(false);
+  const params = useParams();
+  const [chats, setChats] = useState(null);
   const router = useNavigate();
+
   const socket = useRef();
   const [texts, setTexts] = useState([]);
   const [connectedUsers, setConnectedUsers] = useState([]);
@@ -28,6 +31,22 @@ function ChatsPage({ user, chatsData }) {
     name: "",
     profilePicUrl: "",
   });
+  const user = useBearStore((state) => state.user);
+
+  useEffect(() => {
+    const getChats = async () => {
+      try {
+        const token = cookie.get("token");
+        const chats = await axios.get(`${baseUrl}/api/chats`, {
+          headers: { Authorization: token },
+        });
+        setChats(chats.data);
+      } catch (error) {
+        setErrorLoading(true);
+      }
+    };
+    getChats();
+  }, []);
   //This ref is for persisting the state of query string in the url(i.e. the chat.textsWith) throughout re-renders
   //when the component re-rendered, the query string was resetting due to a bug in next.js
   const openChatId = useRef("");
@@ -106,10 +125,10 @@ function ChatsPage({ user, chatsData }) {
       });
     };
 
-    if (socket.current && router.query.chat) {
+    if (socket.current && params.chat) {
       loadTexts(); //this should be in a useEffect that's below the useEffect that's creating the connection
     }
-  }, [router.query.chat]);
+  }, [params.chat]);
 
   const sendText = (e, text) => {
     e.preventDefault();
@@ -309,7 +328,7 @@ function ChatsPage({ user, chatsData }) {
               </>
             </div>
           </div>
-          {router.query.chat && (
+          {params.chat && (
             <div
               style={{
                 minWidth: "27rem",
@@ -409,17 +428,7 @@ function ChatsPage({ user, chatsData }) {
   );
 }
 
-ChatsPage.getInitialProps = async (ctx) => {
-  try {
-    const { token } = parseCookies(ctx);
-    const res = await axios.get(`${baseUrl}/api/chats`, {
-      headers: { Authorization: token },
-    });
-    return { chatsData: res.data };
-  } catch (error) {
-    return { errorLoading: true };
-  }
-};
+ChatsPage.getInitialProps = async (ctx) => {};
 
 export default ChatsPage;
 

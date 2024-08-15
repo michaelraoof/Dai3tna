@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import styled from "styled-components";
 import { LogoutIcon, CogIcon } from "@heroicons/react/solid";
-import { logoutUser } from "../utils/authUser";
+import { logoutUser } from "utils/authUser";
 import { useClickAway } from "react-use";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -31,7 +31,7 @@ function Dropdown({ user, showDropdown, setShowDropdown }) {
         boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
       }}
     >
-      <Link to={`/${user.username}`} passHref>
+      <Link to={`/${user.username}`}>
         <ContainerDiv>
           <div>
             <Image
@@ -68,7 +68,7 @@ function Dropdown({ user, showDropdown, setShowDropdown }) {
         }}
       ></span>
 
-      <Link to="/settings" passHref>
+      <Link to="/settings">
         <ButtonDiv>
           <Icondiv>
             <CogIcon style={{ height: "1.5rem" }} />

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
-import Link from "next/link";
+
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import { Heading, Subheading } from "../components/HelperComponents/Headings";
@@ -8,12 +8,12 @@ import {
   CustomInput,
   Password,
   PasswordInput,
-} from "../components/HelperComponents/Inputs";
+} from "components/HelperComponents/Inputs";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 import { useDispatch } from "react-redux";
-import { addToUser } from "../redux/userSlice";
+import { addToUser } from "redux/userSlice";
 import axios from "axios";
-import baseUrl from "../utils/baseUrl";
+import baseUrl from "utils/baseUrl";
 import { CircularProgress } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";

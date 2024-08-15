@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import Header from "../components/Header";
-import Sidebar from "../components/Sidebar";
+import Header from "components/Header";
+import Sidebar from "components/Sidebar";
 import cookie from "js-cookie";
-import Feed from "../components/Feed";
-import baseUrl from "../utils/baseUrl";
-import styles from "../styles/styles.module.css";
-import RightSideColumn from "../components/RightSideColumn";
+import Feed from "components/Feed";
+import baseUrl from "utils/baseUrl";
+import styles from "styles/styles.module.css";
+import RightSideColumn from "components/RightSideColumn";
 import useBearStore from "store/store";
 
 function Home() {
