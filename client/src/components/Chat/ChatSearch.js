@@ -8,7 +8,8 @@ import React, { useState, useRef } from "react";
 import styled from "styled-components";
 import cookie from "js-cookie";
 import { Facebook } from "react-content-loader";
-import Link from "next/link";
+import { Link } from "react-router-dom";
+
 // import onClickOutside from "react-onclickoutside";
 import { useClickAway } from "react-use";
 import baseUrl from "../../utils/baseUrl";
@@ -104,11 +105,7 @@ function ChatSearch({ setShowChatSearch, setChats, chats }) {
       ) : searchResults.length > 0 ? (
         <>
           {searchResults.map((resultUser) => (
-            <Link
-              key={resultUser._id}
-              href={`/chats?chat=${resultUser._id}`}
-              passHref
-            >
+            <Link key={resultUser._id} to={`/chats?chat=${resultUser._id}`}>
               <div
                 onClick={() => {
                   setShowChatSearch(false);

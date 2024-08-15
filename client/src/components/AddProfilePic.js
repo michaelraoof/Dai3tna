@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components";
-import Link from "next/link";
+
 import { Heading, Subheading } from "./HelperComponents/Headings";
 import {
   CustomInput,

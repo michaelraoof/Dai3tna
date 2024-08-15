@@ -30,10 +30,10 @@
     "mongoose": "^5.13.8",
     "nookies": "^2.3.0",
     "nprogress": "^0.2.0",
-    "react": "18.2.0",
+    "react": "18.3.1",
     "react-click-away-listener": "^2.0.5",
     "react-content-loader": "^6.0.3",
-    "react-dom": "18.2.0",
+    "react-dom": "18.3.1",
     "react-helmet": "^6.1.0",
     "react-hot-toast": "^2.1.1",
     "react-infinite-scroll-component": "^6.1.0",
@@ -52,6 +52,7 @@
     "styled-components": "^6.1.11",
     "tailwind-scrollbar-hide": "^1.0.3",
     "web-vitals": "^2.1.4",
+    "zukeeper": "^1.0.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {

@@ -16,18 +16,12 @@ const notifyError = () =>
   });
 
 function ProfileFields({ profile, isUserOnOwnAccount, newComp }) {
-  const [bio, setBio] = useState(profile.bio ? profile.bio : "");
+  const [bio, setBio] = useState(profile?.bio ?? "");
   const [social, setSocial] = useState({
-    youtube:
-      profile.social && profile.social.youtube ? profile.social.youtube : "",
-    twitter:
-      profile.social && profile.social.twitter ? profile.social.twitter : "",
-    instagram:
-      profile.social && profile.social.instagram
-        ? profile.social.instagram
-        : "",
-    facebook:
-      profile.social && profile.social.facebook ? profile.social.facebook : "",
+    youtube: profile?.social?.youtube ?? "",
+    twitter: profile?.social?.twitter ?? "",
+    instagram: profile?.social?.instagram ?? "",
+    facebook: profile?.social?.facebook ?? "",
   });
   const [editProfile, setEditProfile] = useState(false);
   const [error, setError] = useState(false);

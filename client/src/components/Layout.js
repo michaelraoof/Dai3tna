@@ -7,8 +7,6 @@ import nprogress from "nprogress"; //for the red progress bar at the top. We can
 
 //we'll receive user object here as well as we spread it on the Layout object in _app.js
 function Layout({ children, user }) {
-  const contextRef = createRef();
-
   useEffect(() => {
     const startProgress = () => {
       nprogress.start();
@@ -18,20 +16,11 @@ function Layout({ children, user }) {
       nprogress.done();
     };
 
-    const removeProgress = () => {
-      nprogress.remove();
-    };
+    startProgress();
+    doneProgress();
 
-    // Add event listeners using document.addEventListener
-    document.addEventListener("page:fetch", startProgress);
-    document.addEventListener("page:change", doneProgress);
-    document.addEventListener("page:restore", removeProgress);
-
-    // Remove event listeners when the component unmounts
     return () => {
-      document.removeEventListener("page:fetch", startProgress);
-      document.removeEventListener("page:change", doneProgress);
-      document.removeEventListener("page:restore", removeProgress);
+      doneProgress();
     };
   }, []);
 

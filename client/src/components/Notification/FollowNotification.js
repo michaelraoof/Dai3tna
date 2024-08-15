@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import calculateTime from "../../utils/calculateTime";
-import Link from "next/link";
+import { Link } from "react-router-dom";
 import { CheckCircleIcon, UserAddIcon } from "@heroicons/react/solid";
 import { followUser, unfollowUser } from "../../utils/profileActions";
 
@@ -22,7 +22,7 @@ function FollowNotification({ notification, userFollowStats }) {
         <UserImage src={notification.user.profilePicUrl} alt="userimg" />
         <div>
           <p className="select-none">
-            <Link href={`/${notification.user.username}`} passHref>
+            <Link to={`/${notification.user.username}`}>
               {notification.user.name}
             </Link>{" "}
             started following you.

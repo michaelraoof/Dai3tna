@@ -51,12 +51,8 @@ const setToken = (token) => {
 };
 
 export const logoutUser = async (email, router) => {
-  if (router.pathname === "/chats") {
-    router.replace("/");
-  }
   cookie.set("userEmail", email); //this cookie is set to auto set the email field next time the user is on /login page
   cookie.remove("token");
 
-  await router.push("/login");
-  router.reload();
+  router("/login");
 };
