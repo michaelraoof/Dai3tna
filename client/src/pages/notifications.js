@@ -1,5 +1,4 @@
 import axios from "axios";
-import { parseCookies } from "nookies";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Header from "../components/Header";
@@ -10,9 +9,35 @@ import LikeNotification from "../components/Notification/LikeNotification";
 import CommentNotification from "../components/Notification/CommentNotification";
 import FollowNotification from "../components/Notification/FollowNotification";
 import cookie from "js-cookie";
+import useBearStore from "store/store";
+import { ExclamationCircleIcon } from "@heroicons/react/outline";
 
-function Notifications({ user, notifications, errorLoading, userFollowStats }) {
-  //for setting notifications to read on cleanup of the component / before re-render
+function Notifications() {
+  const { user, userFollowStats } = useBearStore((state) => ({
+    user: state.user,
+    userFollowStats: state.userFollowStats,
+  }));
+
+  const [notifications, setNotifications] = useState([]);
+  const [errorLoading, setErrorLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const token = cookie.get("token"); // Assuming parseCookies function is defined elsewhere
+
+        const res = await axios.get(`${baseUrl}/api/notifications`, {
+          headers: { Authorization: token },
+        });
+
+        setNotifications(res.data);
+      } catch (error) {
+        setErrorLoading(true);
+      }
+    };
+
+    fetchData();
+  }, []);
   useEffect(() => {
     const notificationRead = async () => {
       try {
@@ -91,18 +116,6 @@ function Notifications({ user, notifications, errorLoading, userFollowStats }) {
     </div>
   );
 }
-
-Notifications.getInitialProps = async (ctx) => {
-  try {
-    const { token } = parseCookies(ctx);
-    const res = await axios.get(`${baseUrl}/api/notifications`, {
-      headers: { Authorization: token },
-    });
-    return { notifications: res.data };
-  } catch (error) {
-    return { errorLoading: true };
-  }
-};
 
 export default Notifications;
 
