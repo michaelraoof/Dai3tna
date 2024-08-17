@@ -10,6 +10,8 @@ import Username from "pages/username";
 import FollowersPage from "pages/user/followers";
 import FollowingPage from "pages/user/following";
 import ChatsPage from "pages/chats";
+import NotificationsPage from "pages/notifications";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
     element: (
       <Authenticated>
         <ChatsPage />
+      </Authenticated>
+    ),
+  },
+  {
+    path: "/notifications",
+    element: (
+      <Authenticated>
+        <NotificationsPage />
       </Authenticated>
     ),
   },
