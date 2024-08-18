@@ -14,7 +14,7 @@ import { TextareaAutosize } from "@material-ui/core";
 import { useNavigate } from "react-router-dom";
 import ReusableDialog from "./ReusableDialog";
 import toast, { Toaster } from "react-hot-toast";
-import baseUrl from "../utils/baseUrl";
+import { baseUrlFE } from "utils/baseUrl";
 
 const notify = () =>
   toast.success("Post deleted successfully!", {
@@ -187,7 +187,7 @@ function PostCard({ post, user, setPosts, postById }) {
         </div>
         <div
           onClick={() => {
-            navigator.clipboard.writeText(`${baseUrl}/post/${post._id}`);
+            navigator.clipboard.writeText(`${baseUrlFE}/post/${post._id}`);
 
             notifyCopyLink();
           }}
