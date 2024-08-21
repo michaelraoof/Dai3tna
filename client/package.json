@@ -4,16 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "set PORT=3001 && react-scripts start",
-    "start": "set DISABLE_ESLINT_PLUGIN=true && react-scripts start",
-    "build": "set DISABLE_ESLINT_PLUGIN=true && react-scripts build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "dependencies": {
     "@heroicons/react": "^1.0.4",
@@ -59,8 +53,6 @@
   "devDependencies": {
     "autoprefixer": "^10.4.19",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
-    "eslint": "7.32.0",
-    "eslint-config-react-app": "7.0.1",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3"
   },

@@ -11,7 +11,6 @@ import {
 } from "components/HelperComponents/Inputs";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
 
-import { addToUser } from "redux/userSlice";
 import axios from "axios";
 import baseUrl from "utils/baseUrl";
 import { CircularProgress } from "@material-ui/core";
@@ -106,7 +105,7 @@ function AddUserInfo({
   useEffect(() => {
     console.log(`username : ${username}`);
     username === "" ? setUsernameAvailable(false) : checkUsername();
-    //eslint-disable-line react-hooks/exhaustive-deps
+    //eslint-disable-line
   }, [username]); //this will execute on first component mount and then every time username is changed
 
   //useEffect for checking if all values have been filled
