@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useSearchParams, useLocation } from "react-router-dom";
 import React, { useState, useEffect, useRef } from "react";
 import Header from "components/Header";
 import baseUrl from "utils/baseUrl";
@@ -19,7 +19,11 @@ import useBearStore from "store/store";
 
 function ChatsPage() {
   const [errorLoading, setErrorLoading] = useState(false);
-  const params = useParams();
+
+  const location = useLocation();
+
+  let [searchParams] = useSearchParams();
+
   const [chats, setChats] = useState(null);
   const router = useNavigate();
 
@@ -69,12 +73,11 @@ function ChatsPage() {
       });
     }
 
-    console.log(router.pathname);
     if (
       chats &&
       chats.length > 0 &&
-      !router.query.chat &&
-      router.pathname === "/chats"
+      !searchParams.get("chat") &&
+      location.pathname === "/chats"
     ) {
       if (!cookie.get("token")) {
         return;
@@ -101,7 +104,7 @@ function ChatsPage() {
     const loadTexts = () => {
       socket.current.emit("loadTexts", {
         userId: user._id,
-        textsWith: router.query.chat,
+        textsWith: searchParams.get("chat"),
       });
 
       socket.current.on("textsLoaded", ({ chat, textsWithDetails }) => {
@@ -112,7 +115,7 @@ function ChatsPage() {
             name: textsWithDetails.name,
             profilePicUrl: textsWithDetails.profilePicUrl,
           });
-          openChatId.current = router.query.chat;
+          openChatId.current = searchParams.get("chat");
         } else {
           setTexts(chat.texts);
           scrollToBottom();
@@ -125,10 +128,10 @@ function ChatsPage() {
       });
     };
 
-    if (socket.current && params.chat) {
+    if (socket.current && searchParams.get("chat")) {
       loadTexts(); //this should be in a useEffect that's below the useEffect that's creating the connection
     }
-  }, [params.chat]);
+  }, [searchParams.get("chat")]);
 
   const sendText = (e, text) => {
     e.preventDefault();
@@ -328,7 +331,7 @@ function ChatsPage() {
               </>
             </div>
           </div>
-          {params.chat && (
+          {searchParams.get("chat") && (
             <div
               style={{
                 minWidth: "27rem",
@@ -372,7 +375,6 @@ function ChatsPage() {
                   style={{ scrollbarWidth: "thin" }}
                 >
                   <>
-                    {" "}
                     {texts.length > 0 ? (
                       texts.map((text, i) => (
                         <Chat
@@ -408,7 +410,7 @@ function ChatsPage() {
                         setNewText(e.target.value);
                       }}
                       placeholder="Send a new text..."
-                    />{" "}
+                    />
                     <button
                       hidden
                       disabled={!newText}
@@ -427,8 +429,6 @@ function ChatsPage() {
     </div>
   );
 }
-
-ChatsPage.getInitialProps = async (ctx) => {};
 
 export default ChatsPage;
 

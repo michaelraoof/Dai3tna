@@ -40,16 +40,11 @@ function Login() {
     const isUser = Object.values({ email, password }).every((item) =>
       Boolean(item)
     );
-    //Object.values is used to convert an object into an array.
-    //every is used to test if all items in the array pass the test in the defined function. Also, Every returns a boolean value
-    //isUser will be true only when all values in the array have some value assigned
-    //Boolean(some_variable) returns true only when its assigned
 
-    isUser ? setSubmitDisabled(false) : setSubmitDisabled(true); //basically this useEffect is called everytime a state change is triggered, i.e. a useState is called to change the vlues of name, email, password etc. Only whenn all of them have been entered is when isUser will become true and submitButton will be enabled
+    isUser ? setSubmitDisabled(false) : setSubmitDisabled(true);
   }, [email, password]);
 
   const handleSubmit = async (e) => {
-    console.log(`email: ${email}, password: ${password}`);
     await loginUser(user, router, setErrorMessage, setLoading);
   };
 

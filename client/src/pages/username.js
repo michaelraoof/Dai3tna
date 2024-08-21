@@ -95,7 +95,7 @@ function UserNamePage() {
       }
     };
     getProfile();
-  }, []);
+  }, [params.username]);
   //profilePic
   useEffect(() => {
     if (!didMountRef.current || profilePicPreview === null) {

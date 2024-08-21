@@ -15,7 +15,11 @@ const useBearStore = create(
       set({ userFollowStats });
     },
     initializeUser: ({ user, userFollowStats }) => {
-      set({ user, userFollowStats });
+      set({ user, userFollowStats, isAuthenticated: true });
+    },
+    signUpDetails: {},
+    setSignUpDetails: (signUpDetails) => {
+      set({ signUpDetails });
     },
   }))
 );

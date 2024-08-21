@@ -2,13 +2,22 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const server = require("http").Server(app);
-
+const { baseUrlFE } = require("./utils/baseUrl");
 const dev = process.env.NODE_ENV !== "production";
 
 require("dotenv").config({ path: "./config.env" });
 const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
-const io = require("socket.io")(server);
+const corsOpts = {
+  origin: baseUrlFE,
+};
+const io = require("socket.io")(server, {
+  cors: {
+    ...corsOpts,
+
+    credentials: true,
+  },
+});
 const {
   addUser,
   removeUser,
@@ -22,9 +31,6 @@ const {
 } = require("./utils/messageActions");
 
 connectDb();
-const corsOpts = {
-  origin: "http://localhost:3001",
-};
 
 app.use(cors(corsOpts));
 app.use(express.json());

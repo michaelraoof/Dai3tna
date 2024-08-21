@@ -27,7 +27,7 @@ export default function useAuth() {
         const { user, userFollowStats } = res.data;
 
         initializeUser({ user, userFollowStats });
-        setIsAuthenticated(true);
+
         setLoading(false);
       } catch (error) {
         Cookies.remove("token"); //destroy the cookie in case of error
