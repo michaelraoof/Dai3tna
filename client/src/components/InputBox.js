@@ -5,7 +5,7 @@ import { ArrowSmRightIcon } from "@heroicons/react/solid";
 import { XIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
 import { Public } from "@material-ui/icons";
-import uploadPic from "../utils/uploadPic";
+import uploadPic from "utils/uploadPic";
 import { submitNewPost } from "../utils/postActions";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
 import InfoBox from "./HelperComponents/InfoBox";

@@ -8,8 +8,6 @@ import {
   SocialMedia,
   SocialMediaInput,
 } from "./HelperComponents/Inputs";
-import { useDispatch, useSelector } from "react-redux";
-import { selectUser } from "../redux/userSlice";
 import ImageDiv from "./ImageDiv";
 import YouTubeIcon from "@material-ui/icons/YouTube";
 import TwitterIcon from "@material-ui/icons/Twitter";
@@ -18,14 +16,17 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import mediaqueries from "../utils/mediaqueries";
 import ArrowForwardRoundedIcon from "@material-ui/icons/ArrowForwardRounded";
 import { Circle } from "better-react-spinkit";
-import uploadPic from "../utils/uploadPic";
+import uploadPic from "utils/uploadPic";
 import { registerUser } from "../utils/authUser";
 import ErrorComponent from "./HelperComponents/Error";
-
+import useBearStore from "store/store";
+import { useNavigate } from "react-router-dom";
 function AddProfilePic() {
+  const router = useNavigate();
+
+  const signUpDetails = useBearStore((state) => state.signUpDetails);
+
   const inputRef = useRef();
-  const user = useSelector(selectUser);
-  console.log(user);
 
   const [optionalDetails, setOptionalDetails] = useState({
     bio: "",
@@ -52,30 +53,25 @@ function AddProfilePic() {
   };
 
   const submitProfile = async () => {
-    let profilePicUrl;
+    let profilePicUrl = null;
     setLoading(true);
     if (media !== null) {
       profilePicUrl = await uploadPic(media);
     }
-
-    //in case of error
     if (media !== null && !profilePicUrl) {
       setLoading(false);
       return setErrorMessage("Error Uploading Image");
     }
-
-    console.log({ ...user, ...optionalDetails });
-
     if (bio === "") {
       setLoading(false);
       return setErrorMessage("Please enter a bio");
     }
-
     await registerUser(
-      { ...user, ...optionalDetails },
+      { ...signUpDetails, ...optionalDetails },
       profilePicUrl,
       setErrorMessage,
-      setLoading
+      setLoading,
+      router
     );
   };
 

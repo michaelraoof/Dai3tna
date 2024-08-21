@@ -8,7 +8,8 @@ export const registerUser = async (
   user,
   profilePicUrl,
   setError,
-  setLoading
+  setLoading,
+  router
 ) => {
   try {
     const res = await axios.post(`${baseUrl}/api/signup`, {
@@ -17,6 +18,7 @@ export const registerUser = async (
     }); //user is the user object from frontend
 
     setToken(res.data); //jwt token received in res.data from backend
+    router("/");
   } catch (error) {
     const errorMsg = catchErrors(error);
     setError(errorMsg);

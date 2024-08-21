@@ -10,13 +10,14 @@ import {
   PasswordInput,
 } from "components/HelperComponents/Inputs";
 import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
-import { useDispatch } from "react-redux";
+
 import { addToUser } from "redux/userSlice";
 import axios from "axios";
 import baseUrl from "utils/baseUrl";
 import { CircularProgress } from "@material-ui/core";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import CancelIcon from "@material-ui/icons/Cancel";
+import useBearStore from "store/store";
 
 const regexUserName = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/; //regex to validate username
 
@@ -28,7 +29,8 @@ function AddUserInfo({
   errorMessage,
   setErrorMessage,
 }) {
-  const dispatch = useDispatch();
+  const setSignUpDetails = useBearStore((state) => state.setSignUpDetails);
+
   const [visibility, setVisibility] = useState(false);
   const [user, setUser] = useState({
     name: "",
@@ -122,7 +124,7 @@ function AddUserInfo({
       sessionStorage.setItem("email", email);
       sessionStorage.setItem("password", password);
       sessionStorage.setItem("username", username);
-      dispatch(addToUser({ name, email, password, username }));
+      setSignUpDetails({ name, email, password, username });
       setNextDisabled(false);
     } else {
       setNextDisabled(true);

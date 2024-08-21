@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Your project description",
   "scripts": {
-    "start": "pnpm run dev-client-server",
+    "start": "set NODE_ENV=production && pnpm run dev-client-server",
     "dev-client-server": "concurrently \"cd server/ && pnpm run dev\" \"cd client/ && pnpm run start\""
   },
   "dependencies": {

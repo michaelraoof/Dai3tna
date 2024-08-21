@@ -1,6 +1,6 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-import Authenticated from "./components/Authenticated";
+import Authenticated from "components/Authenticated";
 
 import HomePage from "pages/home";
 import LoginPage from "pages/login";
