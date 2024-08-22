@@ -10,7 +10,7 @@ const PORT = process.env.PORT || 3000;
 const corsOpts = {
   origin: baseUrlFE,
   credentials: true,
-  optionSuccessStatus: 200,
+  allowedHeaders: "Content-Type,Authorization",
 };
 const io = require("socket.io")(server, {
   cors: {
