@@ -11,6 +11,8 @@ const corsOpts = {
   origin: baseUrlFE,
   credentials: true,
   allowedHeaders: "Content-Type,Authorization",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  optionsSuccessStatus: 204,
 };
 const io = require("socket.io")(server, {
   cors: {
