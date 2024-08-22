@@ -104,6 +104,14 @@ server.listen(PORT, (err) => {
   if (err) throw err;
   console.log(`Express server running on ${PORT}`);
 });
-
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", baseUrlFE);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  next();
+});
 //we're calling app.all because all pages in next.js are SSR(Server Side Rendered)
 //if we don't type app.all, the files inside the pages folder won't work
