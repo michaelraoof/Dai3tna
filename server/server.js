@@ -9,12 +9,12 @@ const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
 const corsOpts = {
   origin: baseUrlFE,
+  credentials: true,
+  optionSuccessStatus: 200,
 };
 const io = require("socket.io")(server, {
   cors: {
     ...corsOpts,
-
-    credentials: true,
   },
 });
 const {
