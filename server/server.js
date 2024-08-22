@@ -9,10 +9,9 @@ const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
 const corsOpts = {
   origin: baseUrlFE,
+  methods: "*",
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
-  allowedHeaders: "Content-Type,Authorization",
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  optionsSuccessStatus: 204,
 };
 const io = require("socket.io")(server, {
   cors: {
