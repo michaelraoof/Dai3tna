@@ -8,17 +8,8 @@ const baseUrlFE = process.env.FE_URL;
 const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
 const corsOpts = {
-  origin: (origin, callback) => {
-    if (origin === baseUrlFE || !origin) {
-      callback(null, true); // Allow the request if it matches `baseUrlFE`
-    } else {
-      callback(new Error("Not allowed by CORS")); // Deny the request otherwise
-    }
-  },
-  credentials: true, // Allow credentials (cookies, etc.)
-  allowedHeaders: "Content-Type,Authorization", // Headers allowed in requests
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed methods
-  optionsSuccessStatus: 204,
+  origin: baseUrlFE,
+  credentials: true,
 };
 const io = require("socket.io")(server, {
   cors: {
