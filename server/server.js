@@ -2,10 +2,9 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const server = require("http").Server(app);
-const { baseUrlFE } = require("./utils/baseUrl");
-const dev = process.env.NODE_ENV !== "production";
-
 require("dotenv").config({ path: "./config.env" });
+const dev = process.env.NODE_ENV !== "production";
+const baseUrlFE = process.env.FE_URL;
 const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
 const corsOpts = {
