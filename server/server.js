@@ -8,10 +8,17 @@ const baseUrlFE = process.env.FE_URL;
 const connectDb = require("./utilsServer/connectDb");
 const PORT = process.env.PORT || 3000;
 const corsOpts = {
-  origin: baseUrlFE,
-  methods: "*",
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
+  origin: (origin, callback) => {
+    if (origin === baseUrlFE || !origin) {
+      callback(null, true); // Allow the request if it matches `baseUrlFE`
+    } else {
+      callback(new Error("Not allowed by CORS")); // Deny the request otherwise
+    }
+  },
+  credentials: true, // Allow credentials (cookies, etc.)
+  allowedHeaders: "Content-Type,Authorization", // Headers allowed in requests
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE", // Allowed methods
+  optionsSuccessStatus: 204,
 };
 const io = require("socket.io")(server, {
   cors: {
@@ -104,14 +111,6 @@ server.listen(PORT, (err) => {
   if (err) throw err;
   console.log(`Express server running on ${PORT}`);
 });
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", baseUrlFE);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
-  next();
-});
+
 //we're calling app.all because all pages in next.js are SSR(Server Side Rendered)
 //if we don't type app.all, the files inside the pages folder won't work
