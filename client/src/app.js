@@ -12,6 +12,7 @@ import FollowingPage from "pages/user/following";
 import ChatsPage from "pages/chats";
 import NotificationsPage from "pages/notifications";
 import PostByIdPage from "pages/postId";
+import SettingsPage from "pages/settings";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -75,6 +76,14 @@ const router = createBrowserRouter([
     element: (
       <Authenticated>
         <PostByIdPage />
+      </Authenticated>
+    ),
+  },
+  {
+    path: "/settings",
+    element: (
+      <Authenticated>
+        <SettingsPage />
       </Authenticated>
     ),
   },
