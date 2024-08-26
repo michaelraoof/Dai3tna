@@ -1,10 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import { CameraIcon, ChevronUpIcon } from "@heroicons/react/solid";
 import { ArrowSmRightIcon } from "@heroicons/react/solid";
 import { XIcon } from "@heroicons/react/solid";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { Public } from "@material-ui/icons";
+import { Public } from "@mui/icons-material";
 import uploadPic from "utils/uploadPic";
 import { submitNewPost } from "../utils/postActions";
 import { ExclamationCircleIcon } from "@heroicons/react/outline";
@@ -13,7 +13,6 @@ import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import Loader from "react-loader-spinner";
 
 function InputBox({ user, setPosts, increaseSizeAnim }) {
-  const inputRef = useRef(null);
   const buttonRef = useRef(null);
   const filePickerRef = useRef(null);
   const [image, setImage] = useState(null);

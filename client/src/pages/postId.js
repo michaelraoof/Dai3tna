@@ -3,20 +3,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import InfoBox from "components/HelperComponents/InfoBox";
 import baseUrl from "utils/baseUrl";
-import { deletePost, likePost, postComment } from "utils/postActions";
-import toast, { Toaster } from "react-hot-toast";
-import ReusableDialog from "components/ReusableDialog";
 import styled from "styled-components";
-import calculateTime from "utils/calculateTime";
-import { ThumbUpIcon } from "@heroicons/react/solid";
-import {
-  ChatAltIcon,
-  MinusCircleIcon,
-  ShareIcon,
-  ThumbUpIcon as ThumbUpOutlineIcon,
-} from "@heroicons/react/outline";
-import CommentComponent from "components/CommentComponent";
-import { TextareaAutosize } from "@material-ui/core";
 import Header from "components/Header";
 import Sidebar from "components/Sidebar";
 import PostCard from "components/PostCard";

@@ -1,21 +1,21 @@
 import React, { useState, useEffect, useRef } from "react";
 import styled from "styled-components";
 
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Heading, Subheading } from "../components/HelperComponents/Headings";
 import {
   CustomInput,
   Password,
   PasswordInput,
 } from "components/HelperComponents/Inputs";
-import ErrorOutlineIcon from "@material-ui/icons/ErrorOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 import axios from "axios";
 import baseUrl from "utils/baseUrl";
-import { CircularProgress } from "@material-ui/core";
-import CheckCircleIcon from "@material-ui/icons/CheckCircle";
-import CancelIcon from "@material-ui/icons/Cancel";
+import { CircularProgress } from "@mui/material";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import CancelIcon from "@mui/icons-material/Cancel";
 import useBearStore from "store/store";
 
 const regexUserName = /^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$/; //regex to validate username

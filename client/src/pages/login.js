@@ -1,17 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import cookie from "js-cookie";
-import { loginUser } from "../utils/authUser";
+import { loginUser } from "utils/authUser";
 import styled from "styled-components";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import { Heading, Subheading } from "../components/HelperComponents/Headings";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import { Heading, Subheading } from "components/HelperComponents/Headings";
 import {
   Input,
   Password,
   PasswordInput,
-} from "../components/HelperComponents/Inputs";
-import ErrorComponent from "../components/HelperComponents/Error";
+} from "components/HelperComponents/Inputs";
+import ErrorComponent from "components/HelperComponents/Error";
 
 import { ThreeBounce } from "better-react-spinkit";
 import useAuth from "hooks/useAuth";
