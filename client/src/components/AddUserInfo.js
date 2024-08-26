@@ -113,10 +113,6 @@ function AddUserInfo({
     const isUser = Object.values({ name, email, password, username }).every(
       (item) => Boolean(item)
     );
-    //Object.values is used to convert an object into an array.
-    //every is used to test if all items in the array pass the test in the defined function. Also, Every returns a boolean value
-    //isUser will be true only when all values in the array have some value assigned
-    //Boolean(some_variable) returns true only when its assigned
 
     if (isUser && usernameAvailable) {
       sessionStorage.setItem("name", name);
@@ -129,24 +125,6 @@ function AddUserInfo({
       setNextDisabled(true);
     }
   });
-
-  //   const handleSubmit = async (e) => {
-  //     e.preventDefault();
-  //     setFormLoading(true);
-
-  //     let profilePicUrl;
-  //     if (media !== null) {
-  //       profilePicUrl = await uploadPic(media);
-  //     }
-
-  //     //in case of error
-  //     if (media !== null && !profilePicUrl) {
-  //       setFormLoading(false);
-  //       return setErrorMsg("Error Uploading Image");
-  //     }
-
-  //     await registerUser(user, profilePicUrl, setErrorMsg, setFormLoading);
-  //   };
 
   return (
     <>
@@ -207,7 +185,7 @@ function AddUserInfo({
                 setUsernameAvailable(false);
                 return;
               }
-              //every regex has a test method on it to test the regex against a value
+
               if (regexUserName.test(e.target.value)) {
                 setUsernameAvailable(true);
               } else {

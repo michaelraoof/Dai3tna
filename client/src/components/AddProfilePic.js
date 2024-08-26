@@ -62,10 +62,7 @@ function AddProfilePic() {
       setLoading(false);
       return setErrorMessage("Error Uploading Image");
     }
-    if (bio === "") {
-      setLoading(false);
-      return setErrorMessage("Please enter a bio");
-    }
+
     await registerUser(
       { ...signUpDetails, ...optionalDetails },
       profilePicUrl,
