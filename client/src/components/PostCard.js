@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import styled from "styled-components";
 import calculateTime from "../utils/calculateTime";
 import { ThumbUpIcon } from "@heroicons/react/solid";
@@ -8,9 +8,9 @@ import {
   ShareIcon,
   ThumbUpIcon as ThumbUpOutlineIcon,
 } from "@heroicons/react/outline";
-import { deletePost, likePost, postComment } from "../utils/postActions";
+import { deletePost, likePost, postComment } from "utils/postActions";
 import CommentComponent from "./CommentComponent";
-import { TextareaAutosize } from "@material-ui/core";
+import { TextareaAutosize } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import ReusableDialog from "./ReusableDialog";
 import toast, { Toaster } from "react-hot-toast";

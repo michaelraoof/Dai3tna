@@ -4,10 +4,12 @@ import "./index.css";
 import App from "./app";
 // import "react-toastify/dist/ReactToastify.css"; //import react toastify in _app.js
 import "semantic-ui-css/semantic.min.css"; //semantic ui css package
+import CssBaseline from "@mui/material/CssBaseline";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
+    <CssBaseline />
     <App />
   </React.StrictMode>
 );

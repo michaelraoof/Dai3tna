@@ -1,12 +1,11 @@
-import React, { createRef, useEffect } from "react";
+import { useEffect } from "react";
 import Headtags from "./Headtags";
-import nprogress from "nprogress"; //for the red progress bar at the top. We can change the color of the progress bar by opening nprogress.css in the public folder and changing the background color
+import nprogress from "nprogress";
+import { useLocation } from "react-router-dom";
 
-// import Search from "../Layout/Search";
-// import SideMenu from "../Layout/SideMenu";
+function Layout({ children }) {
+  const location = useLocation();
 
-//we'll receive user object here as well as we spread it on the Layout object in _app.js
-function Layout({ children, user }) {
   useEffect(() => {
     const startProgress = () => {
       nprogress.start();
@@ -22,7 +21,7 @@ function Layout({ children, user }) {
     return () => {
       doneProgress();
     };
-  }, []);
+  }, [location]);
 
   return (
     <>

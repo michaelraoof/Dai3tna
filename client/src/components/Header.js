@@ -21,7 +21,7 @@ import { Link, useLocation } from "react-router-dom";
 
 import HeaderIcon from "./HelperComponents/HeaderIcon";
 import RoundedIcon from "./HelperComponents/RoundedIcon";
-import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Dropdown from "./Dropdown";
 import SearchDropdown from "./SearchDropdown";
 

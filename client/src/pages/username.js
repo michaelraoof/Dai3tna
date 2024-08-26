@@ -1,28 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Header from "../components/Header";
-import AddCircleIcon from "@material-ui/icons/AddCircle";
+import Header from "components/Header";
 import {
   CameraIcon,
   CheckCircleIcon,
   UserAddIcon,
 } from "@heroicons/react/solid";
-import uploadPic from "../utils/uploadPic";
+import uploadPic from "utils/uploadPic";
 import {
   followUser,
   unfollowUser,
   profilePicturesUpdate,
-} from "../utils/profileActions";
+} from "utils/profileActions";
 import Loader from "react-loader-spinner";
 import axios from "axios";
-import baseUrl from "../utils/baseUrl";
-import ProfileFields from "../components/ProfileComponents/ProfileFields";
-import FollowingUsers from "../components/ProfileComponents/FollowingUsers";
-import FollowerUsers from "../components/ProfileComponents/FollowerUsers";
+import baseUrl from "utils/baseUrl";
+import ProfileFields from "components/ProfileComponents/ProfileFields";
+import FollowingUsers from "components/ProfileComponents/FollowingUsers";
+import FollowerUsers from "components/ProfileComponents/FollowerUsers";
 import { useParams } from "react-router-dom";
 import cookie from "js-cookie";
-import PostCard from "../components/PostCard";
-import InfoBox from "../components/HelperComponents/InfoBox";
+import PostCard from "components/PostCard";
+import InfoBox from "components/HelperComponents/InfoBox";
 import { EmojiSadIcon } from "@heroicons/react/outline";
 import { Facebook as FacebookLoader } from "react-content-loader";
 import useBearStore from "store/store";

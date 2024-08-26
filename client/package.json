@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "set PORT=3001 && react-scripts start",
-    "start": "set NODE_ENV=production && react-scripts start",
-    "build": "set NODE_ENV=production && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "dev": "set PORT=3001 && craco start",
+    "start": "set NODE_ENV=production && craco start",
+    "build": "set NODE_ENV=production && craco build"
   },
   "dependencies": {
     "@heroicons/react": "^1.0.4",
-    "@material-ui/core": "^4.12.3",
-    "@material-ui/icons": "^4.11.2",
+    "@mui/icons-material": "^5.16.7",
+    "@mui/material": "^5.16.7",
+    "@mui/styled-engine-sc": "6.0.0-alpha.18",
+    "@mui/styles": "^5.16.7",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
@@ -44,13 +44,14 @@
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
     "socket.io-client": "^4.2.0",
-    "styled-components": "^6.1.11",
+    "styled-components": "^6.1.12",
     "tailwind-scrollbar-hide": "^1.0.3",
     "web-vitals": "^2.1.4",
     "zukeeper": "^1.0.2",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@craco/craco": "^7.1.0",
     "autoprefixer": "^10.4.19",
     "case-sensitive-paths-webpack-plugin": "^2.4.0",
     "postcss": "^8.4.38",

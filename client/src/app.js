@@ -5,7 +5,6 @@ import Authenticated from "components/Authenticated";
 import HomePage from "pages/home";
 import LoginPage from "pages/login";
 import SignupPage from "pages/signup";
-
 import Username from "pages/username";
 import FollowersPage from "pages/user/followers";
 import FollowingPage from "pages/user/following";
@@ -13,6 +12,10 @@ import ChatsPage from "pages/chats";
 import NotificationsPage from "pages/notifications";
 import PostByIdPage from "pages/postId";
 import SettingsPage from "pages/settings";
+
+function App() {
+  return <RouterProvider router={router} />;
+}
 const router = createBrowserRouter([
   {
     path: "/",
@@ -88,8 +91,4 @@ const router = createBrowserRouter([
     ),
   },
 ]);
-function App() {
-  return <RouterProvider router={router} />;
-}
-
 export default App;
