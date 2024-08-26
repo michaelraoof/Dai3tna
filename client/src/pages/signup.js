@@ -1,6 +1,8 @@
 import styles from "styles/styles.module.css";
 import { useState, useRef } from "react";
 import AddProfilePic from "components/AddProfilePic";
+import AddUserInfo from "components/AddUserInfo";
+
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import styled from "styled-components";

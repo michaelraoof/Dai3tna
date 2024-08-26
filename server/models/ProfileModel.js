@@ -5,7 +5,7 @@ const ProfileSchema = new Schema(
   {
     user: { type: Schema.Types.ObjectId, ref: "User" },
     //ref mentioned ("User") has to match with the name of the UserSchema, i.e. "User" again
-    bio: { type: String, required: true },
+    bio: { type: String, required: false },
     social: {
       youtube: { type: String },
       twitter: { type: String },
