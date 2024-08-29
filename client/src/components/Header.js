@@ -141,7 +141,7 @@ function Header({ user }) {
               fontWeight: "700",
             }}
           >
-            {user.username}
+            {user.name}
           </p>
         </div>
       </Link>
