@@ -70,7 +70,8 @@ function Login() {
           Dai3tna
         </Heading>
         <Subheading fontSize={"1.48rem"}>
-          Get your fair share of attention.
+          Full Social Media Features Available | End-to-End Encryption Coming
+          Soon...
         </Subheading>
         <LoginBox className="h-[29.25rem] w-[29.5rem]  lg:w-[30.5rem]">
           <Input
@@ -112,7 +113,7 @@ function Login() {
           ></span>
 
           <BottomText>
-            New to FaShare?{" "}
+            New to Dai3tna?{" "}
             <Link to="/signup">
               <BottomAnchor>Create an account.</BottomAnchor>
             </Link>
