@@ -6,9 +6,19 @@ import catchErrors from "../utils/catchErrors";
 
 const Axios = axios.create({
   baseURL: `${baseUrl}/api/profile`,
-  headers: { Authorization: cookie.get("token") },
 });
-
+Axios.interceptors.request.use(
+  (config) => {
+    const token = cookie.get("token");
+    if (token) {
+      config.headers.Authorization = `${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
 export const followUser = async (
   userToFollowId,
   setUserFollowStats,
