@@ -51,4 +51,4 @@ Dai3tna is a full-featured social media application built with the MERN stack, f
 
 ---
 
-Developed with ❤️ by Mossad and Mario Samy and Michael Raoof.
+Developed with ❤️❤️❤️ by Mossad and Mario Samy and Michael Raoof.
